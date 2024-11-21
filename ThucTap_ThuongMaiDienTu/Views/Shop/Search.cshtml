@@ -1,0 +1,8 @@
+﻿@model IEnumerable<ThucTap_ThuongMaiDienTu.ViewModels.MedicineVM>
+@{
+    ViewData["Title"] = "Search";
+    ViewData["Description"] = "Are these what you are trying to find?";
+    Layout = "~/Views/Shared/_Shop.cshtml";
+}
+
+@await Html.PartialAsync("ProductItem", Model)

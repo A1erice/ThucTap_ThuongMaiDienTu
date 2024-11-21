@@ -1,0 +1,44 @@
+﻿@model ThucTap_ThuongMaiDienTu.Models.MedicineCategory
+@using ThucTap_ThuongMaiDienTu.Resources
+@{
+    ViewData["Title"] = Resource.CategoriesM;
+    ViewData["Active"] = "Categories";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h3 class="mb-4 text-primary">
+                    @Resource.CategoriesM
+                </h3>
+                <div class="d-flex justify-content-between">
+                    <h4 class="mb-4 text-secondary">
+                        @Resource.DetailsOfCategories
+                        @Html.DisplayFor(model => model.Name)
+                    </h4>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

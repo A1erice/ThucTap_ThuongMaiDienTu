@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ThucTap_ThuongMaiDienTu.ViewModels.MedicineCategoryVM> 
+@{
+    var all = 0;
+}
+<ul class="list-unstyled fruite-categorie">
+    @foreach (var item in Model)
+    {
+        all += item.Number;
+        <li>
+            <div class="d-flex justify-content-between fruite-name">
+                <a asp-controller="Shop" asp-action="Index" asp-route-category="@item.Id"><i class="fas fa-prescription-bottle-alt"></i> @item.Name</a>
+                <span>(@item.Number)</span>
+            </div>
+        </li>
+    }
+    <li>
+        <div class="d-flex justify-content-between fruite-name">
+            <a asp-controller="Shop" asp-action="Index"><i class="fas fa-prescription-bottle-alt"></i> All</a>
+            <span>(@all)</span>
+        </div>
+    </li>
+</ul>

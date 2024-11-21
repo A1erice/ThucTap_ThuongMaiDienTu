@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ThucTap_ThuongMaiDienTu.ViewModels.MedicineVM>
+@{
+    var all = 0;
+}
+<ul class="list-unstyled fruite-categorie">
+    <div class="vesitable">
+        <div class="owl-carousel vegetable-carousel justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="border border-primary rounded position-relative vesitable-item">
+                    <div class="vesitable-img">
+                        <img src="~/@item.Img" style="height: 300px; object-fit: cover; width: 100%;">
+                    </div>
+                    <div class="text-white bg-primary px-3 py-1 rounded position-absolute" style="top: 10px; right: 10px;">@item.Category</div>
+                    <div class="p-4 pb-0 rounded-bottom">
+                        <h4>@item.Name</h4>
+                        <p>
+                            @if (item.Description.Length > 100)
+                            {
+                                @item.Description.Substring(0, 100)
+
+                                @:...
+                            }
+                            else
+                            {
+                                @item.Description
+                            }
+                        </p>
+                        <div class="d-flex justify-content-between flex-lg-wrap">
+                            <p class="text-dark fs-5 fw-bold">$@item.Price / @item.Pack</p>
+                            <a href="#" class="btn border border-secondary rounded-pill px-3 py-1 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</ul>

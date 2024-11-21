@@ -1,0 +1,41 @@
+﻿@using ThucTap_ThuongMaiDienTu.Resources
+@{
+    ViewData["Title"] = "Logup";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="container-fluid contact">
+    <div class="container py-1">
+        <div class="p-5 bg-light rounded">
+            <div class="row g-4">
+                <div class="col-lg-5 rounded align-content-center" style="background-image: url('@Url.Content("~/img/banner-fruits.jpg")'); background-size: cover; background-position: center;">
+                    <div class="d-flex p-3 rounded mx-3 my-5" style="background-color:rgba(255,255,255,0.7)">
+                        <div>
+                            <h4>@Resource.LoginAsk1</h4>
+                            <p class="mb-2">@Resource.LoginAsk2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 my-5">
+                    @if (ViewData.ModelState.Count > 0)
+                    {
+                        <div class="alert alert-danger">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                    }
+                    <form asp-action="Logup" asp-controller="Dashboard">
+                        <input name="Name" type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="@Resource.Name" required>
+                        <input name="Username" type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="@Resource.Username" required>
+                        <input name="Email" type="email" class="w-100 form-control border-0 py-3 mb-4" placeholder="Email" required>
+                        <input name="Address" type="text" class="w-100 form-control border-0 py-3 mb-4" placeholder="Address" required>
+                        <input name="Password" type="password" class="w-100 form-control border-0 py-3 mb-4" placeholder="@Resource.Password" required>
+                        <input name="CFPassword" type="password" class="w-100 form-control border-0 py-3 mb-4" placeholder="@Resource.CFPassword" required>
+                        <button class="w-100 btn form-control border-secondary py-3 bg-white text-primary" type="submit">@Resource.Logup</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->

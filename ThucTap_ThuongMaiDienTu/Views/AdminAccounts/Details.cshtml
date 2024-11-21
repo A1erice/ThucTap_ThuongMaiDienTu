@@ -1,0 +1,82 @@
+﻿@model ThucTap_ThuongMaiDienTu.Models.Account
+@using ThucTap_ThuongMaiDienTu.Resources
+@{
+    ViewData["Title"] = Resource.AccountsM;
+    ViewData["Active"] = "Accounts";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h3 class="mb-4 text-primary">
+                    @Resource.AccountsM
+                </h3>
+                <div class="d-flex justify-content-between">
+                    <h4 class="mb-4 text-secondary">
+                        @Resource.DetailsOfUser
+                        @Html.DisplayFor(model => model.Username)
+                    </h4>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Username)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Username)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AccountType)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AccountType)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Address)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Code)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Code)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Active)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @if (Model.Active)
+                        {
+                            <span>Active</span>
+                        }
+                        else
+                        {
+                            <span>Inactive</span>
+                        }
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->
+

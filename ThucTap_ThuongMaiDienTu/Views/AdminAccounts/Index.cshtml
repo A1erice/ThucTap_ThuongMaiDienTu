@@ -1,0 +1,78 @@
+﻿@using ThucTap_ThuongMaiDienTu.Resources
+@model IEnumerable<ThucTap_ThuongMaiDienTu.Models.Account>
+@{
+    ViewData["Title"] = Resource.AccountsM;
+    ViewData["Active"] = "Accounts";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between">
+                    <h3 class="mb-4 text-primary">@Resource.AccountsM</h3>
+                    <a asp-action="Create">@Resource.AccountsN <i class="fa fa-plus" style="font-size: 20px"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Username)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AccountType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Code)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Active)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Email)
+                                </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AccountType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Active)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Email)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit" style="font-size: 25px"></i></a>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle" style="font-size: 25px"></i></a>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt" style="font-size: 25px"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

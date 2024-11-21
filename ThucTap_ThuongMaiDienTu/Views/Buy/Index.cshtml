@@ -1,0 +1,147 @@
+﻿@model Cart
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="container-fluid py-5">
+    <div class="container py-5">
+        <div class="row g-4 justify-content-end">
+            <div class="col-12">
+                @if (Model.CartDetails.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Total</th>
+                                    <th scope="col">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CartDetails)
+                                {
+                                    <tr>
+                                        <th scope="row">
+                                            <div class="d-flex align-items-center">
+                                                <img src="@item.Medicine.Img" class="img-fluid me-1 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                            </div>
+                                        </th>
+                                        <td><p class="mb-0 mt-4">@item.Medicine.Name</p></td>
+                                        <td><p class="mb-0 mt-4">@item.Medicine.Price?.ToString("N0") VND</p></td>
+                                        <td>
+                                            <form id="updateCartForm" method="post" class="d-inline">
+                                                <div class="input-group mt-3">
+                                                    <button type="submit" name="action" value="decrease" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+
+                                                    <input type="text" class="form-control text-center border-1 shadow-none" name="quantity" value="@item.Amount" readonly style="font-size: 16px; max-width: 100px;">
+
+                                                    <button type="submit" name="action" value="increase" class="btn btn-plus btn-outline-secondary btn-sm d-flex align-items-center justify-content-center">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <input type="hidden" name="medicineId" value="@item.MedicineId" />
+                                                <input type="hidden" name="cartId" value="@item.CartId" />
+                                            </form>
+
+
+                                        </td>
+                                        <td><p class="mb-0 mt-4">@item.Total?.ToString("N0") VND</p></td>
+                                        <td>
+                                            <button class="btn btn-md rounded-circle bg-light border mt-3">
+                                                <i class="fa fa-times text-danger"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p>Your cart is empty.</p>
+                }
+            </div>
+            <form asp-action="Checkout" asp-controller="Buy">
+                <input type="hidden" name="address" value="@Model.Account.Address" />
+                <div class="col-12">
+                    <div class="bg-light rounded">
+                        <div class="p-4">
+                            <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0 me-4">Shipping Address</h5>
+                            </div>
+                            <p class="mb-0 text-end">@Model.Account.Address</p>
+                            <div class="border-top border-bottom py-4 mb-4 d-flex justify-content-between">
+                                <h5 class="mb-0">Total</h5>
+                                <p class="mb-0" id="cartTotal">@Model.Total?.ToString("N0") VND</p>  <!-- Use this ID for the cart total -->
+                            </div>
+
+                            <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase" type="submit">
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).on('submit', '#updateCartForm', function (e) {
+        e.preventDefault(); // Prevent the default form submit
+
+        var form = $(this);
+        var action = form.find('button[type="submit"]:focus').val(); // Get the clicked button action (increase or decrease)
+
+        $.ajax({
+            url: '@Url.Action("UpdateCart", "Buy")', // Ensure this matches your controller and action
+            type: 'POST',
+            data: {
+                medicineId: form.find('input[name="medicineId"]').val(),
+                cartId: form.find('input[name="cartId"]').val(),
+                action: action
+            },
+            success: function (response) {
+                if (response.success) {
+                    // Update the quantity in the UI
+                    form.find('input[name="quantity"]').val(response.newAmount);
+                    // Format the total price with thousands separators (1,000,000 format)
+                    var formattedTotal = new Intl.NumberFormat().format(response.newTotal);
+
+                    // Find the correct row and update the total price in the 5th td (index 4)
+                    var totalPriceCell = form.closest('tr').find('td').eq(3); // The total price is in the 4th td (index 3)
+                    totalPriceCell.find('p').text(formattedTotal + "VND");
+
+                    var formattedCartTotal = new Intl.NumberFormat().format(response.cartTotal);
+
+                    // Update the overall cart total in the UI (find the total cart cell)
+                    $('#cartTotal').text(formattedCartTotal + " VND");
+                } else {
+                    alert(response.message); // Show error message
+                }
+            },
+            error: function () {
+                alert('An error occurred while updating the cart.');
+            }
+        });
+    });
+</script>
+

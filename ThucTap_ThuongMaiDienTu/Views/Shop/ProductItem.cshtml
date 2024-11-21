@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ThucTap_ThuongMaiDienTu.ViewModels.MedicineVM>
+
+
+@foreach (var item in Model)
+{
+    <div class="col-md-6 col-lg-6 col-xl-4" onclick="location.href='@Url.Action("ShopDetail", "Shop", new { id = item.Id })';" style="cursor: pointer;">
+        <div class="rounded position-relative fruite-item border border-secondary border-top-0 rounded-bottom">
+            <div class="fruite-img border-bottom border-secondary">
+                <img src="~/@item.Img" class="img-fluid w-100 rounded-top"
+                     alt="" style="height: 300px; object-fit: cover; width: 100%;">
+            </div>
+            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">@item.Category</div>
+            <div class="p-4">
+                <h4>@item.Name</h4>
+                <p>
+                    @if (item.Description.Length > 100)
+                    {
+                        @item.Description.Substring(0, 100)
+
+                        @:...
+                    }
+                    else
+                    {
+                        @item.Description
+                    }
+                </p>
+                <div class="d-flex justify-content-between flex-lg-wrap">
+                    <p class="text-dark fs-5 fw-bold mb-0">@item.Price.ToString("N0") VND / @item.Pack</p>
+                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

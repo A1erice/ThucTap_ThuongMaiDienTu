@@ -1,0 +1,86 @@
+﻿@using ThucTap_ThuongMaiDienTu.Resources
+@model IEnumerable<ThucTap_ThuongMaiDienTu.Models.Medicine>
+@{
+    ViewData["Title"] = Resource.MedicinesM;
+    ViewData["Active"] = "Medicines";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex justify-content-between">
+                    <h3 class="mb-4 text-primary">@Resource.MedicinesM</h3>
+                    <a asp-action="Create">@Resource.MedicinesN <i class="fa fa-plus" style="font-size: 20px"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Img)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Quantity)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Price)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Sold)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Pack)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Category)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="@Html.DisplayFor(modelItem => item.Img)" class="img-fluid me-1 rounded-circle" style="width: 80px; height: 80px;" alt="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @(item.Price?.ToString("N0") + " VND")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sold)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Pack)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Category.Name)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="far fa-edit" style="font-size: 25px"></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-info-circle" style="font-size: 25px"></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="fas fa-trash-alt" style="font-size: 25px"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table End -->

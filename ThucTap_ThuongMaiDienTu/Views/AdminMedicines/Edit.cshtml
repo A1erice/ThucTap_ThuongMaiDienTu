@@ -1,0 +1,106 @@
+﻿@model ThucTap_ThuongMaiDienTu.ViewModels.MedicineCreateVM
+
+@using ThucTap_ThuongMaiDienTu.Resources
+
+@{
+    ViewData["Title"] = Resource.CategoriesM;
+    ViewData["Active"] = "Categories";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h3 class="mb-4 text-primary">Edit Medicine</h3>
+                <div class="d-flex justify-content-between">
+                    <h4>Edit Details</h4>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+                <form asp-action="EditMedicine">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Name" placeholder="Name" />
+                                <label asp-for="Name">Name</label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                                    <option value="">Select Category</option>
+                                </select>
+                                <label asp-for="CategoryId">Category</label>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" asp-for="Quantity" placeholder="Quantity" />
+                                <label asp-for="Quantity">Quantity</label>
+                                <span asp-validation-for="Quantity" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" asp-for="Price" placeholder="Price" />
+                                <label asp-for="Price">Price</label>
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Unit" placeholder="Unit" />
+                                <label asp-for="Unit">Unit</label>
+                                <span asp-validation-for="Unit" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Description" placeholder="Description" />
+                                <label asp-for="Description">Description</label>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Uses" placeholder="Uses" />
+                                <label asp-for="Uses">Uses</label>
+                                <span asp-validation-for="Uses" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Img" placeholder="Image URL" />
+                                <label asp-for="Img">Image URL</label>
+                                <span asp-validation-for="Img" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" asp-for="Sold" placeholder="Sold" />
+                                <label asp-for="Sold">Sold</label>
+                                <span asp-validation-for="Sold" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Ingredient" placeholder="Ingredient" />
+                                <label asp-for="Ingredient">Ingredient</label>
+                                <span asp-validation-for="Ingredient" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" asp-for="Pack" placeholder="Pack" />
+                                <label asp-for="Pack">Pack</label>
+                                <span asp-validation-for="Pack" class="text-danger"></span>
+                            </div>
+
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                    @section Scripts {
+                        @{
+                            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                        }
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

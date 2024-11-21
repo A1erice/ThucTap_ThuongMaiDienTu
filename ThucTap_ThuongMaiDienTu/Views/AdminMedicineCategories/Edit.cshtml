@@ -1,0 +1,49 @@
+﻿@model ThucTap_ThuongMaiDienTu.Models.MedicineCategory
+@using ThucTap_ThuongMaiDienTu.Resources
+@{
+    ViewData["Title"] = @Resource.CategoriesM;
+    ViewData["Active"] = "Categories";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h3 class="mb-4 text-primary">@Resource.CategoriesE</h3>
+                <div class="d-flex justify-content-between">
+                    <h4>@Html.DisplayFor(model => model.Name)</h4>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+                <form asp-action="Edit">
+                    <div class="col-sm-12 col-xl-12">
+                        <div class="bg-light rounded h-100 p-4">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="Img" />
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputEmail" asp-for="Name" placeholder="Name" />
+                                <label asp-for="Name">@Resource.Name</label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInputName" asp-for="Description" placeholder="Description" />
+                                <label asp-for="Description">@Resource.Description</label>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                            <input type="submit" value="Save" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                    @section Scripts {
+                        @{
+                            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                        }
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

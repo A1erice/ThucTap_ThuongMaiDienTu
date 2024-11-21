@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ThucTap_ThuongMaiDienTu.Models.Order>
+@using ThucTap_ThuongMaiDienTu.Resources
+@{
+    ViewData["Title"] = @Resource.OrderList;
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+<div class="container-fluid contact py-5">
+    <div class="container py-5">
+        <div class="p-5 bg-light rounded">
+            <div class="row g-4">
+                <div class="col-12">
+                    <h2>Order List</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Date)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Total)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @(item.Total?.ToString("N0") + " VND")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Address)
+                                    </td>
+                                    <td>
+                                        @if (item.Status)
+                                        {
+                                            <span class="text-success">Shipping</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-warning">Pending</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a asp-action="OrderDetail" asp-route-id="@item.Id">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
